@@ -1,8 +1,6 @@
 import os
-
 import numpy as np
 import pandas as pd
-
 from excel_read import Excel2Dic, path_out
 
 Aluminium_Production_Asia = Excel2Dic('Aluminium_Production_Asia')
