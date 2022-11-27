@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 # Define input out
@@ -19,7 +20,7 @@ class Excel2Dic:
 
         self.contoury_name = list(self.xls_table.iloc[:, 0])
         self.dict = {}
-        self.years, self.Nr_years_apart = [0], 0
+        self.years = [0]
         self._get_years()
         self._generate_dic()
         self.name = csv_name
@@ -57,8 +58,10 @@ class Excel2Dic:
         if not self._check_year_validation(year):
             return 0
         if self._check_name_validation(name):
-
-            return self.dict[year][name]
+            value = self.dict[year][name]
+            if np.isnan(value):
+                return 0
+            return value
         else:
             return 0
 
@@ -70,6 +73,5 @@ class Excel2Dic:
 
     def _get_years(self):
         self.years = list(self.xls_table.iloc[:0])[1:]
-        self.Nr_years_apart = self.years[-1] - self.years[0]
 
 
